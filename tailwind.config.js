@@ -1,12 +1,11 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./index.html",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -52,6 +51,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // background: {
+        //   DEFAULT: "#FFFFFF",
+        //   secondary: "#F5F7F9",
+        // },
+        // text: {
+        //   primary: "#0A1B27",
+        //   secondary: "#253947",
+        //   muted: "#828E97",
+        // },
+        // border: "#ECF0F3",
+        // divider: "#ECF0F3",
+        // muted: "#E0E5E9",
+        // accent: "#485763",
+        // dark: "#122736",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -59,21 +72,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        sans: ["var(--font-figtree)"],
       },
     },
   },
