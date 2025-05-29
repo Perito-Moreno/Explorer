@@ -1,91 +1,64 @@
-"use client"
-
 import { Link, useLocation } from "react-router-dom"
-import { Home, Search, Menu, X } from "lucide-react"
-import { useState } from "react"
-import { MockWalletButton } from "./mock-wallet-button"
+import { WalletConnectButton } from "@/components/wallet-connect-button"
 
 export function Navbar() {
   const location = useLocation()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const navItems = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Explore Properties", href: "/explore", icon: Search },
-  ]
 
   return (
-    <header className="bg-white border-b border-[#ECF0F3]">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <img src="/images/logo.png" alt="Nite Protocol Logo" width={32} height={32} className="mr-2" />
-              <span className="font-bold text-xl text-[#0A1B27]">Nite Protocol</span>
+    <nav className="bg-white border-b border-[#ECF0F3] sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <img src="/images/logo.png" alt="Nite Protocol" className="h-8 w-auto" />
+          </Link>
+
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center space-x-8">
+            <Link
+              to="/"
+              className={`text-sm font-medium transition-colors ${
+                location.pathname === "/"
+                  ? "text-[#122736] border-b-2 border-[#122736] pb-1"
+                  : "text-[#253947] hover:text-[#122736]"
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/explore"
+              className={`text-sm font-medium transition-colors ${
+                location.pathname === "/explore"
+                  ? "text-[#122736] border-b-2 border-[#122736] pb-1"
+                  : "text-[#253947] hover:text-[#122736]"
+              }`}
+            >
+              Explore
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-4">
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.href
-              return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                    isActive ? "bg-[#F5F7F9] text-[#0A1B27]" : "text-[#253947] hover:bg-[#F5F7F9]"
-                  }`}
-                >
-                  <item.icon className="w-4 h-4 mr-2" />
-                  {item.name}
-                </Link>
-              )
-            })}
-          </nav>
-
-          <div className="hidden md:block">
-            <MockWalletButton />
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <MockWalletButton />
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="ml-2 inline-flex items-center justify-center p-2 rounded-md text-[#253947] hover:bg-[#F5F7F9]"
+          {/* Social Links and Wallet */}
+          <div className="flex items-center space-x-4">
+            <a
+              href="https://x.com/niteprotocol"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#253947] hover:text-[#122736] transition-colors"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+              <img src="/images/x-icon.png" alt="X" className="h-5 w-5" />
+            </a>
+            <a
+              href="https://t.me/niteprotocol"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#253947] hover:text-[#122736] transition-colors"
+            >
+              <img src="/images/telegram-icon.png" alt="Telegram" className="h-5 w-5" />
+            </a>
+            <WalletConnectButton />
           </div>
         </div>
       </div>
-
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-[#ECF0F3] py-2">
-          <div className="container mx-auto px-4">
-            <nav className="flex flex-col space-y-1">
-              {navItems.map((item) => {
-                const isActive = location.pathname === item.href
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                      isActive ? "bg-[#F5F7F9] text-[#0A1B27]" : "text-[#253947] hover:bg-[#F5F7F9]"
-                    }`}
-                  >
-                    <item.icon className="w-4 h-4 mr-2" />
-                    {item.name}
-                  </Link>
-                )
-              })}
-            </nav>
-          </div>
-        </div>
-      )}
-    </header>
+    </nav>
   )
 }

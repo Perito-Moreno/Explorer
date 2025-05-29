@@ -1,127 +1,175 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
-import { X } from "lucide-react"
+import { useAccount, useChainId } from "wagmi"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AlertCircle, ExternalLink } from "lucide-react"
 
 interface StakeModalProps {
   isOpen: boolean
   onClose: () => void
-  property: {
-    name: string
-    tokenSymbol: string
-    tokenPrice: number
-  }
-  userTrvlBalance?: string
-  userTokenBalance?: string
+  property: any
 }
 
-export function StakeModal({
-  isOpen,
-  onClose,
-  property,
-  userTrvlBalance = "25000",
-  userTokenBalance = "150",
-}: StakeModalProps) {
+export function StakeModal({ isOpen, onClose, property }: StakeModalProps) {
+  const { isConnected } = useAccount()
+  const chainId = useChainId()
   const [stakeAmount, setStakeAmount] = useState("")
   const [unstakeAmount, setUnstakeAmount] = useState("")
+  const [isStaking, setIsStaking] = useState(false)
+  const [isUnstaking, setIsUnstaking] = useState(false)
 
-  if (!isOpen) return null
+  const handleStake = async () => {
+    if (!isConnected) {
+      alert("Please connect your wallet first")
+      return
+    }
 
-  const handleStake = () => {
-    // In a real app, this would call a smart contract function
-    alert(`Staking ${stakeAmount} TRVL for ${property.name}`)
-    setStakeAmount("")
+    setIsStaking(true)
+    try {
+      // Simulate staking transaction
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      alert(`Successfully staked ${stakeAmount} TRVL for ${property.tokenSymbol}`)
+      setStakeAmount("")
+    } catch (error) {
+      alert("Staking failed. Please try again.")
+    } finally {
+      setIsStaking(false)
+    }
   }
 
-  const handleUnstake = () => {
-    // In a real app, this would call a smart contract function
-    alert(`Unstaking ${unstakeAmount} ${property.tokenSymbol} from ${property.name}`)
-    setUnstakeAmount("")
-  }
+  const handleUnstake = async () => {
+    if (!isConnected) {
+      alert("Please connect your wallet first")
+      return
+    }
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onClose()
+    setIsUnstaking(true)
+    try {
+      // Simulate unstaking transaction
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      alert(`Successfully unstaked ${unstakeAmount} ${property.tokenSymbol}`)
+      setUnstakeAmount("")
+    } catch (error) {
+      alert("Unstaking failed. Please try again.")
+    } finally {
+      setIsUnstaking(false)
     }
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={handleBackdropClick}>
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md overflow-hidden">
-        <div className="flex justify-between items-center p-4 border-b border-[#ECF0F3]">
-          <h3 className="text-lg font-semibold text-[#0A1B27]">Stake TRVL for {property.name}</h3>
-          <button onClick={onClose} className="text-[#828E97] hover:text-[#0A1B27]">
-            <X className="h-5 w-5" />
-          </button>
-        </div>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            Stake & Unstake
+            <span className="text-sm font-normal text-[#828E97]">({property.tokenSymbol})</span>
+          </DialogTitle>
+        </DialogHeader>
 
-        <div className="p-6">
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div>
-              <div className="text-sm text-[#828E97]">Your TRVL Balance</div>
-              <div className="font-semibold text-[#0A1B27]">{Number(userTrvlBalance).toLocaleString()} TRVL</div>
-            </div>
-            <div>
-              <div className="text-sm text-[#828E97]">Your {property.tokenSymbol} Balance</div>
-              <div className="font-semibold text-[#0A1B27]">
-                {Number(userTokenBalance).toLocaleString()} {property.tokenSymbol}
+        <div className="space-y-4">
+          {/* Property Info */}
+          <div className="bg-[#F5F7F9] p-4 rounded-lg">
+            <h3 className="font-medium text-[#0A1B27] mb-2">{property.name}</h3>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span className="text-[#828E97]">Token Price:</span>
+                <div className="font-medium">
+                  1 {property.tokenSymbol} = {property.tokenPrice} TRVL
+                </div>
+              </div>
+              <div>
+                <span className="text-[#828E97]">Total Staked:</span>
+                <div className="font-medium">{Number(property.stakedAmount).toLocaleString()} TRVL</div>
               </div>
             </div>
-          </div>
-
-          <div className="mb-6">
-            <h4 className="font-medium text-[#0A1B27] mb-2">Stake TRVL</h4>
-            <p className="text-sm text-[#253947] mb-4">
-              Stake TRVL to receive {property.tokenSymbol} tokens.
-              <br />
-              Current rate: 1 {property.tokenSymbol} = {property.tokenPrice} TRVL
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="number"
-                value={stakeAmount}
-                onChange={(e) => setStakeAmount(e.target.value)}
-                placeholder="Amount of TRVL to stake"
-                className="flex-1 px-3 py-2 border border-[#ECF0F3] rounded-md focus:outline-none focus:ring-1 focus:ring-[#122736]"
-              />
-              <button
-                onClick={handleStake}
-                disabled={!stakeAmount || Number(stakeAmount) <= 0}
-                className="px-4 py-2 bg-[#122736] text-white rounded-md font-medium hover:bg-opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            <div className="mt-2">
+              <a
+                href={`https://etherscan.io/address/${property.contractAddress}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#122736] text-xs hover:underline inline-flex items-center gap-1"
               >
-                Stake
-              </button>
+                View Contract
+                <ExternalLink className="h-3 w-3" />
+              </a>
             </div>
           </div>
 
-          <div>
-            <h4 className="font-medium text-[#0A1B27] mb-2">Unstake {property.tokenSymbol}</h4>
-            <p className="text-sm text-[#253947] mb-4">
-              Redeem your {property.tokenSymbol} tokens for TRVL.
-              <br />
-              Current rate: 1 {property.tokenSymbol} = {property.tokenPrice} TRVL
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="number"
-                value={unstakeAmount}
-                onChange={(e) => setUnstakeAmount(e.target.value)}
-                placeholder={`Amount of ${property.tokenSymbol} to unstake`}
-                className="flex-1 px-3 py-2 border border-[#ECF0F3] rounded-md focus:outline-none focus:ring-1 focus:ring-[#122736]"
-              />
-              <button
+          {!isConnected && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 flex items-center gap-2">
+              <AlertCircle className="h-4 w-4 text-yellow-600" />
+              <span className="text-sm text-yellow-800">Please connect your wallet to stake or unstake</span>
+            </div>
+          )}
+
+          <Tabs defaultValue="stake" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="stake">Stake TRVL</TabsTrigger>
+              <TabsTrigger value="unstake">Unstake {property.tokenSymbol}</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="stake" className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="stake-amount">Amount to Stake (TRVL)</Label>
+                <Input
+                  id="stake-amount"
+                  type="number"
+                  placeholder="Enter TRVL amount"
+                  value={stakeAmount}
+                  onChange={(e) => setStakeAmount(e.target.value)}
+                  disabled={!isConnected}
+                />
+                {stakeAmount && (
+                  <div className="text-sm text-[#828E97]">
+                    You will receive: {(Number(stakeAmount) / property.tokenPrice).toFixed(4)} {property.tokenSymbol}
+                  </div>
+                )}
+              </div>
+              <Button onClick={handleStake} disabled={!isConnected || !stakeAmount || isStaking} className="w-full">
+                {isStaking ? "Staking..." : "Stake TRVL"}
+              </Button>
+            </TabsContent>
+
+            <TabsContent value="unstake" className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="unstake-amount">Amount to Unstake ({property.tokenSymbol})</Label>
+                <Input
+                  id="unstake-amount"
+                  type="number"
+                  placeholder={`Enter ${property.tokenSymbol} amount`}
+                  value={unstakeAmount}
+                  onChange={(e) => setUnstakeAmount(e.target.value)}
+                  disabled={!isConnected}
+                />
+                {unstakeAmount && (
+                  <div className="text-sm text-[#828E97]">
+                    You will receive: {(Number(unstakeAmount) * property.tokenPrice).toFixed(2)} TRVL
+                  </div>
+                )}
+              </div>
+              <Button
                 onClick={handleUnstake}
-                disabled={!unstakeAmount || Number(unstakeAmount) <= 0}
-                className="px-4 py-2 border border-[#122736] text-[#122736] rounded-md font-medium hover:bg-[#F5F7F9] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={!isConnected || !unstakeAmount || isUnstaking}
+                className="w-full"
+                variant="outline"
               >
-                Unstake
-              </button>
-            </div>
+                {isUnstaking ? "Unstaking..." : `Unstake ${property.tokenSymbol}`}
+              </Button>
+            </TabsContent>
+          </Tabs>
+
+          <div className="text-xs text-[#828E97] space-y-1">
+            <div>• Staking TRVL tokens gives you property tokens that represent your share</div>
+            <div>• Property tokens can be unstaked back to TRVL at any time</div>
+            <div>• Token prices may fluctuate based on property performance</div>
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }

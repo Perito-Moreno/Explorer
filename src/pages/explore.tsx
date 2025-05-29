@@ -217,11 +217,6 @@ const formatTRVL = (amount: string) => {
   return num.toLocaleString(undefined, { maximumFractionDigits: 0 })
 }
 
-// Helper function to format address
-const formatAddress = (address: string) => {
-  return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
-}
-
 // Get unique countries and cities from properties
 const getUniqueCountries = (properties: any[]) => {
   return [...new Set(properties.map((property) => property.country))].sort()
@@ -250,7 +245,6 @@ export function ExplorePage() {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc")
 
   // Ref for infinite scrolling
-  const observerRef = useRef<IntersectionObserver | null>(null)
   const loadMoreTriggerRef = useRef<HTMLDivElement>(null)
 
   // Derived values
@@ -523,8 +517,7 @@ export function ExplorePage() {
                     <img
                       src={property.image || "/placeholder.svg"}
                       alt={property.name}
-                      className="object-cover w-full h-full"
-                      style={{ height: "100%", width: "100%" }}
+                      className="object-cover w-full h-64 md:h-full"
                     />
                   </div>
                 </div>

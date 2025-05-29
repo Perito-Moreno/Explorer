@@ -1,148 +1,117 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, Building, Calendar, Shield, Key, CheckCircle, Infinity } from "lucide-react"
+import { ArrowRight, TrendingUp, Shield, Globe } from "lucide-react"
 
 export function HomePage() {
   return (
-    <div className="max-w-4xl mx-auto">
-      <section className="py-12 md:py-20">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-[#0A1B27]">
-          Unstoppable and Autonomous <br />
-          Vacation Rental Infrastructure
+    <div className="max-w-7xl mx-auto">
+      {/* Hero Section */}
+      <div className="text-center py-20">
+        <h1 className="text-5xl font-bold text-[#0A1B27] mb-6">
+          Stake in the Future of
+          <span className="block text-[#122736]">Real Estate</span>
         </h1>
-        <p className="text-xl text-[#253947] mb-8">
-          Property Management Smart Contracts <br />
-          powered by TRVL
+        <p className="text-xl text-[#253947] mb-8 max-w-3xl mx-auto">
+          Discover tokenized properties worldwide and earn rewards by staking TRVL tokens. Join the decentralized
+          revolution in property investment.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/explore"
-            className="inline-flex items-center justify-center px-6 py-3 bg-[#122736] text-white rounded-md font-medium hover:bg-opacity-90 transition-colors"
+            className="inline-flex items-center px-8 py-3 bg-[#122736] text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors"
           >
-            Explore Properties of the Nite Protocol
-            <ArrowRight className="ml-2 h-4 w-4" />
+            Explore Properties
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
+          <button className="inline-flex items-center px-8 py-3 border border-[#122736] text-[#122736] rounded-lg font-medium hover:bg-[#F5F7F9] transition-colors">
+            Learn More
+          </button>
         </div>
-      </section>
+      </div>
 
-      <section className="py-12 border-t border-[#ECF0F3]">
-        <h2 className="text-2xl font-bold mb-8 text-[#0A1B27]">How it works</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Building className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Create Property Contract</h3>
-            <p className="text-[#253947]">
-              Deploy to the blockchain a Property Management Smart Contract with custom parameters tailored to your
-              property.
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Calendar className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Manage Property</h3>
-            <p className="text-[#253947]">
-              Set rates, manage availability, and configure payment options directly in your own property management
-              smart contract.
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <CheckCircle className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Get Bookings</h3>
-            <p className="text-[#253947]">
-              Link your booking sites to your property contracts to record and manage your bookings on the blockchain
-              and receive payments in TRVL.
-            </p>
-          </div>
+      {/* Features Section */}
+      <div className="py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-[#0A1B27] mb-4">Why Choose Nite Protocol?</h2>
+          <p className="text-lg text-[#253947] max-w-2xl mx-auto">
+            Experience the next generation of property investment with blockchain technology
+          </p>
         </div>
-      </section>
 
-      <section className="py-12 border-t border-[#ECF0F3]">
-        <h2 className="text-2xl font-bold mb-8 text-[#0A1B27]">Why the Nite Protocol?</h2>
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Infinity className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Unstoppable</h3>
+          <div className="bg-white p-8 rounded-lg border border-[#ECF0F3] text-center">
+            <div className="w-16 h-16 bg-[#122736] rounded-full flex items-center justify-center mx-auto mb-6">
+              <TrendingUp className="h-8 w-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#0A1B27] mb-4">High Yield Returns</h3>
             <p className="text-[#253947]">
-              Your property's contract operates autonomously on the blockchain, free from centralized control or
-              downtime.
+              Earn competitive returns through property token staking and revenue sharing from bookings
             </p>
           </div>
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Key className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Permissionless</h3>
-            <p className="text-[#253947]">
-              No approvals or accounts needed - anyone can deploy and manage property contracts without gatekeepers.
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Shield className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Trustworthy</h3>
-            <p className="text-[#253947]">
-              Transparent recording of booking terms and bookings on the blockchain increases trust between hosts and
-              travelers.
-            </p>
-          </div>
-        </div>
-        <br />
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Infinity className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Single Source of Truth</h3>
-            <p className="text-[#253947]">
-              Your property management smart contract acts as a single source of truth about whether your property is
-              booked, available or unavailable. No more double bookings or the need to manually update availability in
-              multiple places.
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Key className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">No Subscription Fees</h3>
-            <p className="text-[#253947]">
-              Only pay for what you use, when you use it. Blockchain transaction fees are paid per transaction and are
-              typically less than $0.01. The Nite Protocol's effective booking fees can be as low as 0%.
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Shield className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Free Distribution</h3>
-            <p className="text-[#253947]">
-              Since your property's contract is public on the blockchain, anyone (e.g. OTAs, PMSs, DBS hosting services,
-              search engines) can distribute listings of your property and drive bookings.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      <section className="py-12 border-t border-[#ECF0F3]">
-        <h2 className="text-2xl font-bold mb-8 text-[#0A1B27]">Tokenomics and Protocol Fees</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Shield className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Staking</h3>
+          <div className="bg-white p-8 rounded-lg border border-[#ECF0F3] text-center">
+            <div className="w-16 h-16 bg-[#122736] rounded-full flex items-center justify-center mx-auto mb-6">
+              <Shield className="h-8 w-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#0A1B27] mb-4">Secure & Transparent</h3>
             <p className="text-[#253947]">
-              Anyone can stake TRVL on a property, to mint the property's tokens. Tokens are backed by the balance of
-              staked TRVL and can be redeemed for TRVL at any moment. A high balance of staked TRVL signals trust by
-              TRVL holders.
+              Built on blockchain technology with smart contracts ensuring transparency and security for all
+              transactions
             </p>
           </div>
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Infinity className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Fee: 100 TRVL/Night + 5%</h3>
+
+          <div className="bg-white p-8 rounded-lg border border-[#ECF0F3] text-center">
+            <div className="w-16 h-16 bg-[#122736] rounded-full flex items-center justify-center mx-auto mb-6">
+              <Globe className="h-8 w-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#0A1B27] mb-4">Global Access</h3>
             <p className="text-[#253947]">
-              100% of the paid fees are accumulated in the property contract's balance, thereby increasing the price of
-              the property's tokens. Therefore, 100% of the fees are earned by those who stake TRVL in the property and
-              thus hold property tokens.
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-[#ECF0F3]">
-            <Key className="h-8 w-8 mb-4 text-[#122736]" />
-            <h3 className="text-lg font-semibold mb-2 text-[#0A1B27]">Effective Fee as Low as 0%</h3>
-            <p className="text-[#253947]">
-              The more you stake on your own property, in comparison to the total staked in it, the more you earn back.
-              If 100% of the TRVL staked in it is yours, you alone will be earning 100% of the fees, and thus the
-              effective fee will be 0%.
+              Access premium properties worldwide with fractional ownership through tokenization
             </p>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Stats Section */}
+      <div className="py-20 bg-white rounded-lg border border-[#ECF0F3]">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-[#0A1B27] mb-4">Platform Statistics</h2>
+          <p className="text-lg text-[#253947]">Join thousands of investors already earning with Nite Protocol</p>
+        </div>
+
+        <div className="grid md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div className="text-4xl font-bold text-[#122736] mb-2">$2.5M+</div>
+            <div className="text-[#253947]">Total Value Locked</div>
+          </div>
+          <div>
+            <div className="text-4xl font-bold text-[#122736] mb-2">150+</div>
+            <div className="text-[#253947]">Properties Listed</div>
+          </div>
+          <div>
+            <div className="text-4xl font-bold text-[#122736] mb-2">5,000+</div>
+            <div className="text-[#253947]">Active Stakers</div>
+          </div>
+          <div>
+            <div className="text-4xl font-bold text-[#122736] mb-2">12.5%</div>
+            <div className="text-[#253947]">Average APY</div>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="py-20 text-center">
+        <h2 className="text-3xl font-bold text-[#0A1B27] mb-4">Ready to Start Earning?</h2>
+        <p className="text-lg text-[#253947] mb-8 max-w-2xl mx-auto">
+          Connect your wallet and start staking in premium properties today
+        </p>
+        <Link
+          to="/explore"
+          className="inline-flex items-center px-8 py-3 bg-[#122736] text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors"
+        >
+          Get Started Now
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Link>
+      </div>
     </div>
   )
 }
