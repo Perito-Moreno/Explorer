@@ -5,7 +5,7 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Home, Search, Menu, X } from "lucide-react"
 import { useState } from "react"
-import { MockWalletButton } from "./mock-wallet-button" // Import our mock button
+import { WalletConnectButton } from "@/components/wallet-connect-button"
 
 export function Navbar() {
   const pathname = usePathname()
@@ -47,12 +47,12 @@ export function Navbar() {
           </nav>
 
           <div className="hidden md:block">
-            <MockWalletButton /> {/* Use our mock wallet button */}
+            <WalletConnectButton />
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
-            <MockWalletButton /> {/* Use our mock wallet button */}
+            <WalletConnectButton />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="ml-2 inline-flex items-center justify-center p-2 rounded-md text-[#253947] hover:bg-[#F5F7F9]"
